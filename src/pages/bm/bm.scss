@@ -1,0 +1,23 @@
+page-bm {
+  on-label {
+    color: #009688 !important;
+    font-weight: bolder !important;
+  }
+  .play-list-item{
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+  }
+  ion-item.active-play-list{
+    background: #8cd0c9;
+    color: white;
+  }
+  .practice-img-v2{
+    width: 100%;
+    height: calc(75vh - 142.8px);
+    background-position: center;
+    background-repeat: no-repeat;
+    background-size: cover;
+  }
+}
+

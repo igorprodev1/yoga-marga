@@ -1,0 +1,25 @@
+page-practice-settings {
+    ion-input {
+        .text-input {
+            text-align: center;
+        }
+    }
+
+    ion-datetime {
+        width: 100%;
+    }
+
+    .full-width {
+        .text-input {
+            width: 100%;
+        }
+    }
+    .datetime-md{
+        padding: 0;
+    }
+    .time-change-row{
+        .input-wrapper{
+            flex-flow: column;
+        }
+    }
+}

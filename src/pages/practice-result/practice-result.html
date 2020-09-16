@@ -1,0 +1,28 @@
+<ion-content padding>
+  <ion-item no-padding *ngIf="practice.isAmountCounter">
+    <p ion-text text-wrap text-center color="gray">
+      Установите количество
+    </p>
+    <ion-item no-padding class="input-style input-goals input-teamplate">
+      <ion-input type="number" [(ngModel)]="amountCounter"></ion-input>
+    </ion-item>
+  </ion-item>
+
+  <ion-item no-padding *ngIf="practice.isMaxAchievement">
+      <p ion-text text-wrap text-center color="gray">
+        Установите максимальное достижение
+      </p>
+      <ion-item no-padding class="input-style input-goals input-teamplate">
+        <ion-input type="number" [(ngModel)]="maxAchievement"></ion-input>
+      </ion-item>
+    </ion-item>
+</ion-content>
+
+<ion-footer class="footer">
+  <button ion-button color="primary" clear (click)="onSave()" [disabled]="savingState">
+    <ion-icon name="checkmark-circle" class="lg-icon"></ion-icon>
+  </button>
+  <button ion-button color="primary" clear (click)="onExit()">
+    <ion-icon name="close-circle" class="lg-icon"></ion-icon>
+  </button>
+</ion-footer>

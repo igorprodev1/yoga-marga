@@ -1,0 +1,134 @@
+<ion-header>
+  <ion-navbar>
+    <button ion-button menuToggle class="pos-a" ion-text color="white">
+      <ion-icon name="menu" class="fs-30"></ion-icon>
+    </button>
+    <p text-center ion-text color="white" class="header-title">Комплексы</p>
+    <div class="space-block"></div>
+  </ion-navbar>
+</ion-header>
+
+<ion-content padding-vertical>
+
+  <!-- <ion-title text-center margin-bottom class="">Каталог</ion-title> -->
+  <h1>
+    Общие комплексы
+  </h1>
+  <ion-card no-margin class="full-width box-shadow">
+    <ion-card-content no-padding padding-vertical>
+      <ion-grid>
+        <ion-row justify-content-center>
+            <p ion-text text-center class="fs-16 text-wrap" *ngIf="!presets || presets.length == 0">Общих комплексов пока нет. </p>
+          <ion-col (click)="goToMyComplex(p)" col-4 class="border-r col-between" no-padding *ngFor="let p of presets">
+
+            <ion-row>
+              <ion-col col-12>
+                <ion-item text-center no-padding>
+                    <img img-cache img-cache-src="{{p.ico}}" #img class="img-icon" >
+                    <!-- <img class="img-icon" [ngStyle]="{'-webkit-mask': 'url(' + img.src + ') no-repeat 50% 50%','mask': 'url(' + img.src + ') no-repeat 50% 50%'}"> -->
+                </ion-item>
+              </ion-col>
+            </ion-row>
+
+            <ion-row>
+              <ion-col col-12>
+                <ion-item text-center no-padding class="min-height-default">
+                  <p ion-text class="fs-16 text-wrap">{{p.name}}</p>
+                </ion-item>
+              </ion-col>
+            </ion-row>
+
+          </ion-col>
+        </ion-row>
+      </ion-grid>
+    </ion-card-content>
+  </ion-card>
+
+
+  <!-- <ion-grid>
+    <ion-row justify-content-end>
+      <button icon-start margin-top margin-bottom class="button-custom mr-md-50 btn-sm-width">
+        
+        Все комплексы
+        <span class="arrow"></span>
+      </button>
+    </ion-row>
+  </ion-grid> -->
+
+  <h1>
+    Личные комплексы
+  </h1>
+  <ion-card no-margin class="full-width box-shadow">
+      <ion-card-content no-padding padding-vertical>
+          <p ion-text text-center class="fs-16 text-wrap" *ngIf="!complexes || complexes.length == 0">У Вас пока нет комплексов, но Вы можете их создать</p>
+        <ion-grid>
+          <ion-row justify-content-center>
+            
+            <ion-col  col-4 class="border-r col-between" no-padding *ngFor="let cm of complexes" (click)="goToMyComplex(cm)">
+  
+              <ion-row >
+                <ion-col col-12>
+                  <ion-item text-center no-padding>
+                      <img img-cache img-cache-src="{{cm.ico}}" #img1 class="img-icon" >
+                      <!-- <img class="img-icon" [ngStyle]="{'-webkit-mask': 'url(' + img1.src + ') no-repeat 50% 50%','mask': 'url(' + img1.src + ') no-repeat 50% 50%'}"> -->
+                  </ion-item>
+                </ion-col>
+              </ion-row>
+  
+              <ion-row>
+                <ion-col col-12>
+                  <ion-item text-center no-padding class="min-height-default">
+                    <p ion-text class="fs-16 text-wrap">{{cm.name}}</p>
+                  </ion-item>
+                </ion-col>
+              </ion-row>
+  
+            </ion-col>
+          </ion-row>
+        </ion-grid>
+      </ion-card-content>
+    </ion-card>
+
+  <!-- <ion-card no-margin class="full-width box-shadow">
+    <ion-card-content no-padding padding-vertical>
+      <ion-grid>
+        <ion-row justify-content-center>
+            
+          <ion-col col-1 *ngFor="let c of complexes">
+           
+            <ion-col  col-4 class="border-r col-between" no-padding >
+              <ion-row>
+                <ion-col col-12>
+                  <ion-item text-center no-padding>
+                    <img class="img-icon" [src]="c.ico" alt="">
+                  </ion-item>
+                </ion-col>
+              </ion-row>
+
+              <ion-row>
+                <ion-col col-12>
+                  <ion-item text-center no-padding class="min-height-default">
+                    
+                    <p ion-text class="fs-16 text-wrap">{{c.name}}</p>
+                  </ion-item>
+                </ion-col>
+              </ion-row>
+            </ion-col>
+
+          </ion-col>
+        </ion-row>
+      </ion-grid>
+    </ion-card-content>
+  </ion-card> -->
+
+  <ion-grid>
+    <ion-row justify-content-end>
+      <button icon-start margin-top margin-bottom class="button-custom mr-md-50 btn-sm-width"  navPush="CreateComplexNamePage">
+        <!-- <ion-icon name="ios-book-outline"></ion-icon> -->
+        Создать комплекс
+        <span class="arrow"></span>
+      </button>
+    </ion-row>
+  </ion-grid>
+
+</ion-content>

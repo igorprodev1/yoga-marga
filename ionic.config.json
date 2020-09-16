@@ -1,0 +1,7 @@
+{
+  "name": "Yoga Marga",
+  "integrations": {
+    "cordova": {}
+  },
+  "type": "ionic-angular"
+}

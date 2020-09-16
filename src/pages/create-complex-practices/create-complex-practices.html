@@ -1,0 +1,34 @@
+<ion-content padding>
+  <!-- <button ion-button class="ion-no-margin" color="primary" navPush="CreateComplexSelectPracticesPage">
+    Добавить упражнение.
+  </button> -->
+  <ion-item no-padding style="margin-top: 40px;">
+    <p ion-text text-wrap text-center color="gray">
+      Кликните по тем практикам которые вы хотите добавить в комплекс.
+    </p>
+  </ion-item>
+  <div>
+    <ion-item *ngFor="let pract of model.practices;let i = index" id="radio-style ios" (click)="uselect(pract)">
+      <ion-label>
+        <div class="marker purple"></div>{{pract.name}}
+      </ion-label>
+    </ion-item>
+  </div>
+  <hr>
+  <div>
+    <ion-item *ngFor="let pract of practices;let i = index" id="radio-style ios" (click)="select(pract)">
+      <ion-label>
+        <div class="marker green"></div>{{pract.name}}
+      </ion-label>
+    </ion-item>
+  </div>
+</ion-content>
+
+<ion-footer class="footer">
+  <button ion-button color="primary" clear navPop>
+    <ion-icon name="arrow-back" class="lg-icon"></ion-icon>
+  </button>
+  <button ion-button color="primary" clear (click)="onSave()">
+    <ion-icon name="checkmark-circle" class="lg-icon"></ion-icon>
+  </button>
+</ion-footer>

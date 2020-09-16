@@ -1,0 +1,59 @@
+<!-- <ion-header>
+  <ion-navbar>
+    <button ion-button menuToggle ion-text color="white" class="pos-a">
+      <ion-icon name="menu" class="fs-30"></ion-icon>
+    </button>
+    <p text-center ion-text color="white" class="header-title">Регистрация</p>
+  </ion-navbar>
+</ion-header> -->
+
+<ion-content>
+  <ion-grid>
+    <ion-row justify-content-center>
+      <ion-col col-xl-3 col-lg-3 col-md-5 col-sm-8 text-center>
+
+        <!-- Logo mabe be a Svg file -->
+
+        <ion-img class="img-sing-up m-t-20" src="/assets/logo/logo.jpg"></ion-img>
+        <p padding-horizontal text-center ion-text>
+          Для использования приложения, пожалуйста, зарегистрируйтесь!
+        </p>
+        <form novalidate [formGroup]="myForm">
+          <ion-item [ngClass]="{'error-validation': (myForm.controls['spiritualName'].invalid) && (customeValidation === false)}" no-padding
+            class="input-style">
+            <ion-input [(ngModel)]="data.spiritualName" formControlName="spiritualName" text-left placeholder="Духовное Имя" color="gray" clearInput></ion-input>
+          </ion-item>
+          <ion-item [ngClass]="{'error-validation': (myForm.controls['fullName'].invalid) && (customeValidation === false)}" no-padding class="input-style">
+            <ion-input [(ngModel)]="data.fullName" formControlName="fullName" text-left placeholder="Ф.И.О." clearInput></ion-input>
+          </ion-item>
+          <ion-item [ngClass]="{'error-validation': (myForm.controls['Email'].invalid) && (customeValidation === false)}" no-padding class="input-style">
+            <ion-input  type="email" [(ngModel)]="data.Email" formControlName="Email" text-left placeholder="Email" clearInput></ion-input>
+          </ion-item>
+          <ion-item [ngClass]="{'error-validation': (myForm.controls['Status'].invalid) && (customeValidation === false) }" no-padding class="input-style p-l-input-17">
+            <ion-label>Статус</ion-label>
+            <!-- <ion-select [(ngModel)]="data.gender" formControlName="gender">
+              <ion-option value="f">Статус 1</ion-option>
+              <ion-option value="m">Статус 1</ion-option>
+            </ion-select> -->
+            <ion-select [(ngModel)]="data.Status" formControlName="Status">
+                <ion-option [value]="g.name" *ngFor="let g of groups$ | async">{{g.name}}</ion-option>
+              </ion-select>
+          </ion-item>
+          <ion-item [ngClass]="{'error-validation': (myForm.controls['Password'].invalid) && (customeValidation === false)}" no-padding class="input-style">
+            <ion-input type="password" [(ngModel)]="data.Password" formControlName="Password" text-left placeholder="Пароль" type="password" clearInput></ion-input>
+          </ion-item>
+          <ion-item [ngClass]="{'error-validation': ((data.RepeatPassword !== data.Password) && (customeValidation === false)) || ((myForm.controls['RepeatPassword'].invalid) && (customeValidation === false))}" no-padding class="input-style">
+            <ion-input type="password" [(ngModel)]="data.RepeatPassword" formControlName="RepeatPassword" text-left placeholder="Потвердите пароль" type="password" clearInput></ion-input>
+          </ion-item>
+        </form>
+        <button [ngClass]="{'error': (myForm.invalid) && (customeValidation === false)}" full text-capitalize class="height-100 btn-sing-up btn-hover" (click)="signUp()">Зарегистрироваться</button>
+        <p  text-center ion-text class="m-t-40">
+            Есть аккаунт? 
+            <button class="bg-none cust-link" (click)="goSingIn()">
+              Войти
+            </button>
+          </p>
+      </ion-col>
+    </ion-row>
+  </ion-grid>
+</ion-content>

@@ -1,0 +1,77 @@
+<ion-content>
+  <!-- <div class="practice-img">
+    <img img-cache img-cache-src="{{ show.img }}" *ngIf="show.img" style="padding-top: 10px;" [class.mirror]="show.imgMirror"/>
+  </div> -->
+
+  <div class="practice-img-v2" img-cache img-cache-bg-url="{{ show.img }}" [ngStyle]="{'background-image': 'url('+show.img+')'}"
+  [class.mirror]="show.imgMirror"></div>
+
+  <div class="stats-blok">
+    <div>
+      <ion-icon name="clock" style="margin-right: 7px;"></ion-icon>
+      {{practice.settings?.spentTime | msToHours}}
+    </div>
+    <div *ngIf="practice.settings?.amountCounter">
+      <ion-icon name="medal" style="margin-right: 7px;"></ion-icon>{{practice.settings?.amountCounter}}
+    </div>
+    <div *ngIf="practice.settings?.maxAchievement">
+      <ion-icon name="podium" style="margin-right: 7px;"></ion-icon>{{practice.settings?.maxAchievement}}
+    </div>
+  </div>
+
+  <h1 ion-text color="dark" style="font-weight: bold;">{{ show?.title }}</h1>
+
+  <div class="time" *ngIf="state !== StateEnum.Inited && show.practiceTimer">{{show.practiceTimer | appdate}}</div>
+  <!-- <div style="width: 100%;height: 4px;background-color: #8F67BE;"></div> -->
+  <div class="time" *ngIf="state !== StateEnum.Inited && show.exerciseTimer">{{show.exerciseTimer | appdate}}</div>
+  <!-- <div style="width: 100%;height: 4px;background-color: #8F67BE;"></div> -->
+  <!-- {{countdown | appdate}} -->
+  <!-- <div class="time" *ngIf="state !== StateEnum.Inited" >{{countdown | appdate}}</div> -->
+  <!-- <ion-progress-bar color="primary" value="0.5" *ngIf="state !== StateEnum.Inited"></ion-progress-bar>
+  <ion-progress-bar color="primary" value="0.5"></ion-progress-bar>
+  <ion-progress-bar></ion-progress-bar> -->
+  <div style="height: 25%;overflow: scroll;" padding-horizontal *ngIf="state === StateEnum.Inited">
+    <div [innerHTML]="show?.description"></div>
+  </div>
+
+</ion-content>
+
+<ion-footer class="footer">
+  <button ion-button color="primary" clear (click)="onToggleAudio()" *ngIf="show.audio">
+    <span *ngIf="practice.audio | isArray" class="audio-badge">{{practice.settings?.defaultAudioIdx + 1}}</span>
+    <ion-icon name="volume-up" class="lg-icon" *ngIf="!isMuted"></ion-icon>
+    <ion-icon name="volume-off" class="lg-icon" *ngIf="isMuted"></ion-icon>
+  </button>
+
+  <button ion-button color="primary" clear (click)="toggleMetronome()" *ngIf="metronome">
+    <ion-icon name="pulse" class="lg-icon"></ion-icon>
+  </button>
+
+  <button ion-button color="primary" clear *ngIf="practice.text && state !== StateEnum.Started" (click)="opentText()">
+    <ion-icon name="document" class="lg-icon"></ion-icon>
+  </button>
+
+  <button ion-button color="primary" clear *ngIf="state === StateEnum.Inited || state === StateEnum.Paused"
+    (click)="state !== StateEnum.Paused?startPractice():resumePractice()">
+    <ion-icon name="play" class="lg-icon"></ion-icon>
+  </button>
+  
+  <button ion-button color="primary" clear (click)="exercisesHelper.onSkipExercise()"
+  *ngIf="(state === StateEnum.Started || state === StateEnum.Paused) && exercisesHelper.hasExercises()">
+    <ion-icon name="skip-forward"  class="lg-icon"></ion-icon>
+  </button>
+
+  <button ion-button color="primary" *ngIf="state === StateEnum.Started" (click)="pausePractice()" clear>
+    <ion-icon name="pause" class="lg-icon"></ion-icon>
+  </button>
+
+  <button ion-button color="primary" clear *ngIf="state === StateEnum.Inited" navPush="PracticeSettingsPage"
+    [navParams]="{practice: practice}">
+    <ion-icon name="settings" class="lg-icon"></ion-icon>
+  </button>
+
+  <button ion-button color="primary" clear (click)="exitPractice()">
+    <ion-icon name="close-circle" class="lg-icon"></ion-icon>
+  </button>
+
+</ion-footer>

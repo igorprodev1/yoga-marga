@@ -1,0 +1,40 @@
+<ion-content>
+  <div class="practice-img">
+    <!-- <img img-cache img-cache-src="{{ practice.img }}" *ngIf="practice.img" style="padding-top: 10px;" /> -->
+    <div class="practice-img-v2" img-cache img-cache-bg-url="{{ practice.img }}" [ngStyle]="{'background-image': 'url('+practice.img+')'}"></div>
+
+  </div>
+
+  <ion-item *ngFor="let t of practice.bmtracks; let i=index" [ngClass]="{'active-play-list': playedIdx === i}" (click)="onSelectTrack(i)">
+    <ion-label class="play-list-item">
+      {{i+1}}. {{t.name}}
+      <ion-icon *ngIf="playedIdx === i" ios="ios-musical-notes" md="ios-musical-notes" margin-right></ion-icon>
+    </ion-label>
+  </ion-item>
+</ion-content>
+<ion-footer class="footer">
+  <button ion-button color="primary" clear (click)="onBack()">
+    <ion-icon name="skip-backward" class="lg-icon"></ion-icon>
+  </button>
+
+  <button ion-button color="primary" clear *ngIf="paused" (click)="onPlay()">
+    <ion-icon name="play" class="lg-icon"></ion-icon>
+  </button>
+  <button ion-button color="primary" clear *ngIf="!paused" (click)="onPause()">
+    <ion-icon name="pause" class="lg-icon"></ion-icon>
+  </button>
+
+  <button ion-button color="primary" clear (click)="onForw()">
+    <ion-icon name="skip-forward" class="lg-icon"></ion-icon>
+  </button>
+
+  <button ion-button color="primary" clear navPush="PracticeSettingsPage" (click)="onPause()"
+    [navParams]="{practice: practice}">
+    <ion-icon name="settings" class="lg-icon"></ion-icon>
+  </button>
+
+  <button ion-button color="primary" clear navPop>
+    <ion-icon name="close-circle" class="lg-icon"></ion-icon>
+  </button>
+
+</ion-footer>

@@ -1,0 +1,155 @@
+<ion-content padding>
+  <ion-grid>
+    
+    <div ion-text text-center *ngIf="practice.detailedInformation">
+      <!-- <button ion-button class="ion-no-margin" color="primary" (click)="setExDurationsByDefault()">
+        Восстановить по умолчанию
+      </button> -->
+      <a ion-button class="ion-no-margin" color="primary"  href="#" (click)="window.open(practice.detailedInformation, '_system', 'location=yes');"> Детальное описание практики</a>
+      <br><br>
+    </div>
+    
+
+    <ion-item no-padding>
+      <p ion-text text-wrap text-center color="gray">
+        Установите приоритет (чем больше число тем выше практика в списке)
+      </p>
+      <ion-item no-padding class="input-style input-goals input-teamplate">
+        <ion-input type="number" [(ngModel)]="settings.priority"></ion-input>
+      </ion-item>
+    </ion-item>
+    <ion-item no-padding *ngIf="practice.audio | isArray">
+      <p ion-text text-wrap text-center color="gray">
+        Выберите аудиофайл который будет использоваться по умолчанию
+      </p>
+      <div *ngFor="let a of practice.audio;let i = index">
+        <ion-item id="radio-style ios" class="width-default radio-style" style="display: inline-block;">
+          <ion-toggle [ngModel]="settings.defaultAudioIdx == i" (ngModelChange)="settings.defaultAudioIdx=i">
+          </ion-toggle>
+        </ion-item>
+
+        <audio controls >
+          <source  [src]="a">
+          Your browser does not support the audio element.
+        </audio>
+      </div>
+    </ion-item>
+
+
+    
+    <!-- *ngIf="!exercisesHelper.hasExercises()" -->
+    <div >
+      <ion-item no-padding *ngIf="!practice.isBm">
+        <p ion-text text-wrap text-center color="gray">
+          Установите время всей практики
+        </p>
+        <ion-item no-padding class="input-style input-goals input-teamplate">
+          <ion-datetime ion-margin-vertical text-center displayFormat="HH:mm:ss" pickerFormat="HH:mm:ss" 
+          [disabled]="exercisesHelper.hasExercises()"
+            (ngModelChange)="onPracticeTimeChange($event)" [(ngModel)]="practiceDuration"></ion-datetime>
+        </ion-item>
+      </ion-item>
+
+      <ion-item no-padding *ngIf="practice.exercises && practice.exercises[0]">
+        <p ion-text text-wrap text-center color="gray">
+          Также вы можете установить время на каждое упражнение
+        </p>
+        <ion-item no-padding class="input-style input-goals input-teamplate">
+          <ion-datetime ion-margin-vertical displayFormat="HH:mm:ss" pickerFormat="HH:mm:ss" text-center
+            (ngModelChange)="onTimeForExerciseChange($event)" [(ngModel)]="exerciseDuration"></ion-datetime>
+        </ion-item>
+      </ion-item>
+    </div>
+
+    <ion-item no-padding *ngIf="!practice.isBm">
+      <p ion-text text-wrap text-center color="gray">
+        Установите время, через которое Вы услышите настановление о
+        неотвлечении
+      </p>
+      <ion-item no-padding class="input-style input-goals input-teamplate">
+        <ion-datetime ion-margin-vertical displayFormat="HH:mm:ss" pickerFormat="HH:mm:ss" text-center
+          (ngModelChange)=" onRemainderItervalChange($event)" [(ngModel)]="reminderInterval"></ion-datetime>
+      </ion-item>
+
+      <ion-row nowrap align-items-center>
+        <ion-item id="radio-style ios" class="width-default radio-style">
+          <ion-toggle [(ngModel)]="settings.singleReminder" (ngModelChange)="onChangeSolo()">
+          </ion-toggle>
+        </ion-item>
+        <p padding-horizontal color="text-light" text-wrap text-capitalize text-left ion-text
+          class="m-0 p-0 fs-13 letter-spacing-2 lable-radio-box">
+          Однократное напоминание
+        </p>
+      </ion-row>
+      <ion-row nowrap align-items-center>
+        <ion-item id="radio-style ios" class="width-default radio-style">
+          <ion-toggle [(ngModel)]="settings.multiReminder" (ngModelChange)="onChangeMulti()">
+          </ion-toggle>
+        </ion-item>
+        <p padding-horizontal color="text-light" text-wrap text-left ion-text text-capitalize
+          class="m-0 p-0 fs-13 letter-spacing-2 lable-radio-box">
+          Постоянное напоминание
+        </p>
+      </ion-row>
+    </ion-item>
+
+    <ion-item no-padding *ngIf="practice.hasMetronome">
+      <metronome [(ngModel)]="settings.intervals" #metronome (ngModelChange)="onChangeIntervals($event)"></metronome>
+    </ion-item>
+
+    <ion-item no-padding>
+      <p ion-text text-wrap text-center color="gray">
+        Цель: время проведенное в практике (Часов)
+      </p>
+      <ion-item no-padding class="input-style input-goals input-teamplate">
+        <ion-input class="full-width" type="number" [ngModel]="settings.spentTimeGoal/60/60/1000"
+          (ngModelChange)="settings.spentTimeGoal=+$event*60*60*1000"></ion-input>
+      </ion-item>
+    </ion-item>
+
+    <ion-item no-padding *ngIf="practice.hasMaxAchievement">
+      <p ion-text text-wrap text-center color="gray">
+        Цель: максимальное достижение (например длительность задержки в минутах)
+      </p>
+      <ion-item no-padding class="input-style input-goals input-teamplate">
+        <ion-input type="number" [(ngModel)]="settings.maxAchievementGoal"></ion-input>
+      </ion-item>
+    </ion-item>
+
+    <ion-item no-padding *ngIf="practice.hasAmountCounter">
+      <p ion-text text-wrap text-center color="gray">
+        Цель: количество (например количество простираний)
+      </p>
+      <ion-item no-padding class="input-style input-goals input-teamplate">
+        <ion-input type="number" [(ngModel)]="settings.amountCounterGoal"></ion-input>
+      </ion-item>
+    </ion-item>
+  </ion-grid>
+  <!-- <ion-item no-padding> -->
+
+  <div ion-text text-center>
+    <p ion-text text-wrap text-center color="gray" *ngIf="settings.exercises && settings.exercises[0]">
+      Вы можете установить свое время для каждого упражнения
+    </p>
+    <button ion-button class="ion-no-margin" color="primary" (click)="setExDurationsByDefault()">
+      Восстановить по умолчанию
+    </button>
+  </div>
+
+  <ion-item *ngFor="let e of settings.exercises; let i=index" class="time-change-row">
+    <ion-label position="stacked">{{i+1}}.{{e.name}}</ion-label>
+    <ion-datetime ion-margin-vertical displayFormat="HH:mm:ss" pickerFormat="HH:mm:ss" text-center
+      [ngModel]="settings.exercises[i].exerciseDuration | appdate"
+      (ngModelChange)="settings.exercises[i].exerciseDuration=transformTime($event, 'S->T'); recalcTotal()"></ion-datetime>
+  </ion-item>
+
+</ion-content>
+
+<ion-footer class="footer">
+  <button ion-button color="primary" clear (click)="onSave()" [disabled]="savingState">
+    <ion-icon name="checkmark-circle" class="lg-icon"></ion-icon>
+  </button>
+  <button ion-button color="primary" clear navPop>
+    <ion-icon name="close-circle" class="lg-icon"></ion-icon>
+  </button>
+</ion-footer>

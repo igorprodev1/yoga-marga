@@ -1,0 +1,52 @@
+<ion-menu [content]="content" [enabled]="menyIsEnabled">
+  <ion-header>
+    <!-- <ion-toolbar>
+      <h3 no-margin padding-left ion-text color="white">Menu</h3>
+    </ion-toolbar> -->
+  </ion-header>
+
+  <ion-content class="menu-side-bar">
+    <ion-list class="p-t-70">
+      <!-- <ion-icon name="close"></ion-icon> -->
+      <ion-icon menuClose class="icon-close">
+        <!-- <svg-icon src="/assets/icon/svg/popup/close.svg" [stretch]="true" [svgStyle]="{'width.px':25}">
+        </svg-icon> -->
+        <img width="25px" src="/assets/icon/svg/popup/close.svg" alt="">
+      </ion-icon>
+      <!-- <ion-grid class="p-0 m-b-20">
+        <ion-row>
+          <ion-col col-12 class="p-0">
+            <ion-row align-items-center class="pos-r row-search">
+              <ion-input class="m-0-input" type="text" placeholder="Поиск практики"></ion-input>
+              <ion-icon class="icon-serch">
+                <img width="16px" src="/assets/icon/svg/popup/search.svg" alt="">
+              </ion-icon>
+            </ion-row>
+          </ion-col>
+        </ion-row>
+      </ion-grid> -->
+
+
+      <div *ngFor="let p of pages">
+        <button class="bg-none sidebar-item" menuClose (click)="openPage(p)">
+            <ion-icon menuClose class="icon-sidebar-item">
+                <svg-icon src="{{p.icon}}" [stretch]="true" [svgStyle]="{'height.px':17}">
+                </svg-icon>
+              </ion-icon>
+          {{p.title}}
+        </button>
+      </div>
+      <button class="bg-none sidebar-item" menuClose (click)="signOut()">
+          <ion-icon menuClose class="icon-sidebar-item">
+              <svg-icon src="/assets/icon/svg/navigation/icon-nav6.svg" [stretch]="true" [svgStyle]="{'height.px':17}">
+              </svg-icon>
+            </ion-icon>
+        Выйти
+      </button>
+    </ion-list>
+  </ion-content>
+
+</ion-menu>
+
+<!-- Disable swipe-to-go-back because it's poor UX to combine STGB with side menus -->
+<ion-nav [root]="rootPage" #content swipeBackEnabled="false"></ion-nav>
